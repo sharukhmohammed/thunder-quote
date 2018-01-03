@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="notificationPriorityEntries">
+        <item>Top</item>
+        <item>Normal</item>
+        <item>Bottom</item>
+    </string-array>
+    <string-array name="notificationPriorityValues">
+        <item>2</item>
+        <item>0</item>
+        <item>-2</item>
+    </string-array>
+    <string-array name="notificationFreqEntries">
+        <item>High Frequency</item>
+        <item>Regular Frequency</item>
+        <item>Low Frequency</item>
+    </string-array>
+</resources>

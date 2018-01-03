@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/fbutton_color_clouds"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="sharukh.thunderquote.MainActivity">
+
+    <TextView
+        android:id="@+id/quoteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Design is not just what it looks like and feels like. Design is how it works."
+        android:textColor="@color/colorAccentDark"
+        android:textSize="26sp"
+        />
+
+
+    <TextView
+        android:id="@+id/authorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/quoteTextView"
+        android:layout_alignRight="@+id/quoteTextView"
+        android:layout_below="@+id/quoteTextView"
+        android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
+        android:text="Steven Paul Jobs"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="40sp"/>
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/copyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/moreButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:drawableTop="@drawable/ic_subtitles_white_36dp"
+        android:paddingBottom="@dimen/fbutton_default_padding_bottom"
+        android:text="COPY"
+        android:textColor="@color/icons"
+        app:buttonColor="@color/colorPrimary"
+        app:cornerRadius="16dp"
+        app:shadowColor="@color/colorPrimaryDark"
+        app:shadowEnabled="true"
+        app:shadowHeight="6dp"/>
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/moreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@drawable/ic_format_quote_white_36dp"
+        android:paddingBottom="@dimen/fbutton_default_padding_bottom"
+        android:text="Next"
+        android:textColor="@color/icons"
+        app:buttonColor="@color/colorPrimary"
+        app:cornerRadius="16dp"
+        app:shadowColor="@color/colorAccentDark"
+        app:shadowEnabled="true"
+        app:shadowHeight="6dp"/>
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/moreButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:drawableTop="@drawable/ic_send_white_36dp"
+        android:paddingBottom="@dimen/fbutton_default_padding_bottom"
+        android:text="Share"
+        android:textColor="@color/icons"
+        app:buttonColor="@color/colorPrimary"
+        app:cornerRadius="16dp"
+        app:shadowColor="@color/colorPrimaryDark"
+        app:shadowEnabled="true"
+        app:shadowHeight="6dp"/>
+
+    <is.arontibo.library.ElasticDownloadView
+        android:id="@+id/elastic_download_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:hapticFeedbackEnabled="true"
+        />
+
+</RelativeLayout>
