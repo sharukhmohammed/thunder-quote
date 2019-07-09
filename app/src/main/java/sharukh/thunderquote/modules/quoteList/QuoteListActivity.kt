@@ -1,9 +1,8 @@
-package sharukh.thunderquote
+package sharukh.thunderquote.modules.quoteList
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import sharukh.thunderquote.R
 
 class QuoteListActivity : AppCompatActivity() {
 

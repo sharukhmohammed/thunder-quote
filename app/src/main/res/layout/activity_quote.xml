@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.main.QuoteActivity">
+
+    <ImageView
+        android:id="@+id/quote_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/quote_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="monospace"
+        android:textColor="#FFF"
+        android:textSize="28sp"
+        tools:text="Some Random Quote I just wrote" />
+
+    <TextView
+        android:id="@+id/quote_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/quote_text"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorAccent"
+        android:fontFamily="cursive"
+        android:textColor="#FFF"
+        android:textSize="28sp"
+        tools:text="@tools:sample/full_names" />
+
+    <ProgressBar
+        android:id="@+id/quote_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

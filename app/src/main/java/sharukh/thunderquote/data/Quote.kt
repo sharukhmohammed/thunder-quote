@@ -1,17 +1,15 @@
 package sharukh.thunderquote.data
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Entity(tableName = "quote_table")
+@Entity()
 data class Quote(
-        @SerializedName("quoteText")
         val text: String,
-        @SerializedName("quoteAuthor")
-        val author: String?
+        val author: String?,
+        val createdAt: Long,
+        val backgroundUrl: String?
 ) {
-
     @PrimaryKey(autoGenerate = true)
-    val id: Int =0
+    var id: Int = 0
 }

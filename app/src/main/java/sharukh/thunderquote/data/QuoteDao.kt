@@ -1,7 +1,7 @@
 package sharukh.thunderquote.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface QuoteDao {
@@ -15,12 +15,12 @@ interface QuoteDao {
     @Delete
     fun delete(quote: Quote)
 
-    @Query("DELETE FROM quote_table")
+    @Query("DELETE FROM quote")
     fun deleteAllQuotes()
 
-    @Query("SELECT * FROM quote_table ORDER BY id ASC")
+    @Query("SELECT * FROM quote ORDER BY id ASC")
     fun getAllQuotes(): LiveData<List<Quote>>
 
-    @Query("SELECT * FROM quote_table WHERE id IN (SELECT id FROM quote_table ORDER BY RANDOM() LIMIT 1)")
+    @Query("SELECT * FROM quote WHERE id IN (SELECT id FROM quote ORDER BY RANDOM() LIMIT 1)")
     fun getRandomQuote(): Quote
 }

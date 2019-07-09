@@ -1,11 +1,11 @@
 package sharukh.thunderquote.data
 
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import android.os.AsyncTask
+import android.util.Log
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 @Database(entities = [Quote::class], version = 1)
@@ -31,17 +31,8 @@ abstract class QuoteDatabase : RoomDatabase() {
         private val roomOnCreateCallback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                PopulateDbAsyncTask(instance).execute()
+                Log.w("Room", "Database created")
             }
-        }
-
-        class PopulateDbAsyncTask(private val quoteDatabase: QuoteDatabase?) : AsyncTask<Unit, Unit, Unit>() {
-            override fun doInBackground(vararg params: Unit?) {
-                quoteDatabase?.quoteDao()?.insert(Quote("Something", "Someone"))
-                quoteDatabase?.quoteDao()?.insert(Quote("A Quote", "A Man"))
-                quoteDatabase?.quoteDao()?.insert(Quote("Whatever", "Myself"))
-            }
-
         }
     }
 }
