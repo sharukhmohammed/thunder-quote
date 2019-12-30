@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [Quote::class], version = 1)
 abstract class QuoteDatabase : RoomDatabase() {
-    abstract fun quoteDao(): QuoteDao
+    abstract fun dao(): Quote.Db
 
     companion object {
 

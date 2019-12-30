@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sharukh.thunderquote">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".modules.settings.SettingsActivity"
             android:label="Settings"
@@ -18,14 +22,27 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sharukh.thunderquote.modules.main.QuoteActivity" />
         </activity>
-        <activity android:name=".modules.main.QuoteActivity">
+
+        <activity android:name=".modules.main.QuoteActivity"
+            android:theme="@style/AppTheme.TransparentStatusNav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name=".modules.quoteList.QuoteListActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

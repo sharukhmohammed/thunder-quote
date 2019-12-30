@@ -1,31 +1,28 @@
 package sharukh.thunderquote.modules.main
 
+import android.app.Application
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Response
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import sharukh.thunderquote.base.App
 import sharukh.thunderquote.data.Quote
-import sharukh.thunderquote.network.ForismaticAPI
-import sharukh.thunderquote.network.ForismaticResponse
-import sharukh.thunderquote.network.UnsplashAPI
-import sharukh.thunderquote.network.UnsplashResponse
+import sharukh.thunderquote.data.QuoteRepository
 
 class QuoteModel {
 
-    fun getQuote(): Observable<Quote> {
-        return Observable.zip(
-                UnsplashAPI().getRandomImage(),
-                ForismaticAPI().getQuote(),
-                BiFunction { unSplashResponse: Response<UnsplashResponse>, quoteResponse: Response<ForismaticResponse> ->
-                    Quote(
-                            quoteResponse.body()?.quoteText!!,
-                            quoteResponse.body()?.quoteAuthor,
-                            System.currentTimeMillis(),
-                            unSplashResponse.body()?.urls?.regular)
+    private val quoteRepository = QuoteRepository(App.context as Application)
 
-                }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    fun getQuote(): Observable<Quote> {
+        return quoteRepository.getRandomQuoteServer()
+    }
+
+    fun toggleLike(id: Long, statusCallback: (Boolean) -> Unit) {
+        GlobalScope.launch {
+            val quote = quoteRepository.getQuote(id).await()
+            quote.isFavorite = !quote.isFavorite
+            statusCallback(quote.isFavorite)
+            quoteRepository.updateQuote(quote).await()
+        }
     }
 
 }

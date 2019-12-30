@@ -5,4 +5,54 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+
+    <!--Space-->
+    <dimen name="space_largest">48dp</dimen>
+    <dimen name="space_larger">32dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_base">16dp</dimen>
+    <dimen name="space_medium">12dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_smaller">4dp</dimen>
+    <dimen name="space_smallest">2dp</dimen>
+    <dimen name="space_zero">0dp</dimen>
+
+    <!--Margin-->
+    <dimen name="item_top_margin">8dp</dimen>
+    <dimen name="date_margin">12dp</dimen>
+
+    <!--Text-->
+    <dimen name="text_headline">24sp</dimen>
+    <dimen name="text_header">22sp</dimen>
+    <dimen name="text_largest">20sp</dimen>
+    <dimen name="text_larger">18sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_base">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_smaller">10sp</dimen>
+    <dimen name="text_smallest">8sp</dimen>
+
+    <!--Separators-->
+    <dimen name="separator_larger">4dp</dimen>
+    <dimen name="separator_large">2dp</dimen>
+    <dimen name="separator">1dp</dimen>
+    <dimen name="separator_small">0.5dp</dimen>
+    <dimen name="separator_smaller">0.2dp</dimen>
+
+    <!--Corners-->
+    <dimen name="corner_button">32dp</dimen>
+    <dimen name="corner_background">24dp</dimen>
+    <dimen name="corner_card">16dp</dimen>
+    <dimen name="corner_medium">8dp</dimen>
+    <dimen name="corner_default">8dp</dimen>
+    <dimen name="corner_zero">0dp</dimen>
+
+    <!--Elevation-->
+    <dimen name="elevation_zero">0dp</dimen>
+    <dimen name="elevation_least">1dp</dimen>
+    <dimen name="elevation_button">8dp</dimen>
+    <dimen name="elevation">4dp</dimen>
+    <dimen name="elevation_card">12dp</dimen>
+
 </resources>

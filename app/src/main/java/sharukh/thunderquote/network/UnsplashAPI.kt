@@ -8,6 +8,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import sharukh.thunderquote.BuildConfig
 
 interface UnsplashAPI {
 
@@ -30,7 +31,7 @@ interface UnsplashAPI {
                                         .request()
                                         .newBuilder()
                                         .addHeader("Accept-Version", "v1")
-                                        .addHeader("Authorization", "Client-ID cd10ebdf2b53a17ad2fd13582f70a4c721118ed4322a20f5f54257bc77d58193")
+                                        .addHeader("Authorization", BuildConfig.UNSPLASH_API_KEY)
                                         .build()
                         )
                     }

@@ -8,7 +8,6 @@ import sharukh.thunderquote.data.Quote
 class QuotePresenter(private val view: View) {
 
     private var disposable: Disposable? = null
-    private var imageAPIDisposable: Disposable? = null
     private val model = QuoteModel()
 
     fun dispose() {
@@ -23,10 +22,11 @@ class QuotePresenter(private val view: View) {
                 .doOnTerminate { view.hideProgress() }
                 .subscribe(
                         {
-                            view.loadImage(it.backgroundUrl.toString())
                             view.showQuote(it)
+                            view.toggleLike(it.isFavorite)
                         },
                         {
+                            it.printStackTrace()
                             if (it is HttpException) {
                                 view.showError("Network Error: " + it.code() + " ${it.message()}")
                             }
@@ -41,8 +41,12 @@ class QuotePresenter(private val view: View) {
                 )
     }
 
+    fun toggleLike(id: Long) {
+        model.toggleLike(id) { view.toggleLike(it) }
+    }
+
     interface View : BaseView {
         fun showQuote(quote: Quote)
-        fun loadImage(url: String)
+        fun toggleLike(liked: Boolean)
     }
 }
