@@ -266,6 +266,15 @@
                 android:src="@drawable/ic_next" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/quote_helper_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quote_cta_secondary"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="@dimen/space_base" />
     </RelativeLayout>
 
 </LinearLayout>

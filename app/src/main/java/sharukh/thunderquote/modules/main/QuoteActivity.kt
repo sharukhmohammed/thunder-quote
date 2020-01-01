@@ -19,6 +19,10 @@ import androidx.palette.graphics.Palette
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_quote.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import sharukh.thunderquote.R
 import sharukh.thunderquote.base.BaseActivity
 import sharukh.thunderquote.data.Quote
@@ -150,6 +154,8 @@ class QuoteActivity : BaseActivity(), QuotePresenter.View {
 
                                                 quote_cta_layout.setBackgroundColor(swatch.rgb)
 
+                                                quote_helper_text.setTextColor(swatch.titleTextColor)
+
                                             } ?: Log.e("Palette", "No Vibrant Switch")
 
                                             swatch2?.let {
@@ -192,10 +198,12 @@ class QuoteActivity : BaseActivity(), QuotePresenter.View {
 
     override fun toggleLike(liked: Boolean) {
         quote_like.setImageDrawable(getDrawable(if (liked) R.drawable.ic_fav else R.drawable.ic_no_fav))
+        if(liked) showHelperText("Added to Favourites") else quote_helper_text.text = null
     }
 
     override fun showError(error: String) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        showHelperText(error)
     }
 
     private fun toggleLike(id: Long) {
@@ -258,5 +266,20 @@ class QuoteActivity : BaseActivity(), QuotePresenter.View {
             e.printStackTrace()
         }
 
+    }
+
+    private fun showHelperText(string: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            quote_helper_text.text = string
+            quote_helper_text.visibility = View.VISIBLE
+            GlobalScope.launch(Dispatchers.IO) {
+                delay(3500)
+                GlobalScope.launch(Dispatchers.Main) {
+                    quote_helper_text.text = null
+                    quote_helper_text.visibility = View.GONE
+                }
+            }
+
+        }
     }
 }
