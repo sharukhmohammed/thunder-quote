@@ -1,5 +1,6 @@
 package sharukh.thunderquote.modules.quoteList
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_quote.view.*
 import sharukh.thunderquote.R
 import sharukh.thunderquote.data.Quote
+import sharukh.thunderquote.modules.main.QuoteActivity
 
 class QuoteListAdapter : RecyclerView.Adapter<QuoteListAdapter.QuoteHolder>() {
     private val quoteList = ArrayList<Quote>()
@@ -41,6 +43,10 @@ class QuoteListAdapter : RecyclerView.Adapter<QuoteListAdapter.QuoteHolder>() {
                 this.item_quote_text.text = quote.text
                 this.item_quote_author.text = quote.author
 
+                setOnClickListener {
+                    //Must give callback to QuoteListActivity then start activity there - this is a dirty way
+                    context.startActivity(QuoteActivity.startIntent(context,quote.id))
+                }
             }
         }
     }

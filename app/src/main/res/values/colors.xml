@@ -18,4 +18,5 @@
     <color name="divider">#B6B6B6</color>
 
     <color name="transparent_black">#33000000</color>
+    <color name="transparent_dark">#55000000</color>
 </resources>

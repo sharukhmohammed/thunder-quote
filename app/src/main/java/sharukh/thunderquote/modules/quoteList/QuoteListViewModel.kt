@@ -11,4 +11,8 @@ class QuoteListViewModel(app: Application) : AndroidViewModel(app) {
     fun getAllQuotes(): LiveData<List<Quote>> {
         return model.getAllQuotes()
     }
+
+    fun getFavouriteQuotes(): LiveData<List<Quote>> {
+        return model.getFavouriteQuotes()
+    }
 }

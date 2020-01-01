@@ -2,6 +2,7 @@ package sharukh.thunderquote.modules.main
 
 import android.app.Application
 import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import sharukh.thunderquote.base.App
@@ -23,6 +24,10 @@ class QuoteModel {
             statusCallback(quote.isFavorite)
             quoteRepository.updateQuote(quote).await()
         }
+    }
+
+    fun getQuoteDb(id: Long): Deferred<Quote> {
+        return quoteRepository.getQuote(id)
     }
 
 }

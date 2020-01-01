@@ -18,11 +18,13 @@ class QuoteRepository(app: Application) {
     private var quoteDao: Quote.Db
 
     private var allQuotes: LiveData<List<Quote>>
+    private var favQuotes: LiveData<List<Quote>>
 
     init {
         val database = QuoteDatabase(app.applicationContext)
         quoteDao = database.dao()
         allQuotes = quoteDao.getAllQuotes()
+        favQuotes = quoteDao.getFavorites()
     }
 
     fun insertQuote(quote: Quote, idCallback: ((Long) -> Unit)? = null) {
@@ -78,5 +80,9 @@ class QuoteRepository(app: Application) {
         return GlobalScope.async (Dispatchers.IO) {
             quoteDao.update(quote)
         }
+    }
+
+    fun getFavouriteQuotes(): LiveData<List<Quote>> {
+        return favQuotes
     }
 }

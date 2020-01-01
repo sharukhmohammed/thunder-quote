@@ -26,4 +26,6 @@
     <string name="share">Share</string>
     <string name="Next">next</string>
     <string name="history">History</string>
+    <string name="all">All</string>
+    <string name="favourites">Favourites</string>
 </resources>

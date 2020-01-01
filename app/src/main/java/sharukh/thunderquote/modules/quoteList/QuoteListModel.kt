@@ -13,4 +13,8 @@ class QuoteListModel {
     fun getAllQuotes(): LiveData<List<Quote>> {
         return quoteRepository.getAllQuotes()
     }
+
+    fun getFavouriteQuotes(): LiveData<List<Quote>> {
+        return quoteRepository.getFavouriteQuotes()
+    }
 }

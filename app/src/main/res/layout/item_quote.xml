@@ -4,16 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/space_small"
-    app:cardCornerRadius="@dimen/corner_zero"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/space_small">
+    app:cardCornerRadius="@dimen/corner_zero">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/item_quote_image"
@@ -21,18 +17,22 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/item_quote_text"
             android:layout_alignBottom="@id/item_quote_author"
+            android:foreground="@color/transparent_dark"
             android:scaleType="centerCrop" />
 
         <TextView
+            android:padding="@dimen/space_largest"
             android:id="@+id/item_quote_text"
             style="@style/TextAppearance.AppCompat.Quote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:textSize="18sp"
+            android:textColor="@color/icons"
             tools:text="@tools:sample/lorem" />
 
         <TextView
+            android:padding="@dimen/space_small"
             android:id="@+id/item_quote_author"
             style="@style/TextAppearance.AppCompat.Author"
             android:layout_width="match_parent"
@@ -40,7 +40,8 @@
             android:layout_below="@id/item_quote_text"
             android:layout_marginTop="8dp"
             android:textAlignment="textEnd"
-            android:textSize="18sp"
+            android:textColor="@color/icons"
+            android:textSize="14sp"
             tools:text="@tools:sample/full_names" />
 
     </RelativeLayout>
