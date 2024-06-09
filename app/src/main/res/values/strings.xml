@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ThunderQuote</string>
+    <string name="favorite">Favorite</string>
+    <string name="share">Share</string>
+    <string name="refresh">Refresh</string>
+    <string name="more">More</string>
+</resources>
