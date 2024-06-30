@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlinxSerialisation)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -53,17 +55,36 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Lifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+
+    // Network
     implementation(libs.retrofit)
+
+    //Serialization
     implementation(libs.kotlinx.serialisation.core)
     implementation(libs.kotlinx.serialisation.json)
 
+    //Room
+    implementation(libs.room.core)
+    implementation(libs.room.paging)
+    implementation(libs.room.ktx)
+    ksp(libs.room.annotation)
+
+    //Paging
+    implementation(libs.compose.paging)
+
+
+    //Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

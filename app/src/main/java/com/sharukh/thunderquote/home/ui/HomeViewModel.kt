@@ -3,42 +3,39 @@ package com.sharukh.thunderquote.home.ui
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.sharukh.thunderquote.model.Quote
-import com.sharukh.thunderquote.repo.HomeRepo
+import com.sharukh.thunderquote.repo.QuoteRepo
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    private val repo = HomeRepo()
+    private val repo = QuoteRepo()
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(
+        State(
+            quotes = repo.quoteByPaging()
+        )
+    )
     val state = _state.asStateFlow()
 
 
     init {
-        getAllQuotes()
+        determineQuotesState()
     }
 
-    private fun getAllQuotes() = viewModelScope.launch() {
-        val quotes = repo.getAllQuotes()
-        _state.update {
-            it.copy(
-                quote = quotes.randomOrNull(),
-                quotes = quotes.take(10)
-            )
+    private fun determineQuotesState() {
+        viewModelScope.launch {
+            // repo.insertAllQuotes()
         }
     }
 
     fun refresh() {
-        _state.update {
-            it.copy(
-                quote = it.quotes.randomOrNull(),
-                quotes = it.quotes.shuffled()
-            )
-        }
+
     }
 
     fun share() {
@@ -52,10 +49,6 @@ class HomeViewModel : ViewModel() {
 
     @Immutable
     data class State(
-        val quote: Quote? = null,
-        val quotes: List<Quote> = emptyList()
-    ) {
-        val isLoading
-            get() = quote == null || quotes.isEmpty()
-    }
+        val quotes: Flow<PagingData<Quote>> = emptyFlow()
+    )
 }

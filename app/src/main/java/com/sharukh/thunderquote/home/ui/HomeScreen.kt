@@ -2,7 +2,6 @@
 
 package com.sharukh.thunderquote.home.ui
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,8 +12,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
@@ -35,23 +34,28 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.model.Quote
 import com.sharukh.thunderquote.model.QuoteDummies
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeScreenActivity(viewModel: HomeViewModel, actions: HomeScreenActions? = null) {
-    val state by viewModel.state.collectAsState()
-    Log.i("HomeScreen", "Quotes: ${state.quotes.size}")
-
+    val state by viewModel.state.collectAsStateWithLifecycle()
     HomeScreen(state, actions)
 }
 
@@ -125,16 +129,24 @@ private fun HomeScreen(state: HomeViewModel.State, action: HomeScreenActions? = 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeScreenContent(innerPadding: PaddingValues, state: HomeViewModel.State) {
-    if (state.isLoading) Box(contentAlignment = Alignment.Center) {
+    val quotesPages = state.quotes.collectAsLazyPagingItems()
+    val isLoading = quotesPages.loadState.refresh is LoadState.Loading
+
+    if (isLoading) Box(contentAlignment = Alignment.Center) {
         CircularProgressIndicator()
     }
     else LazyColumn(
         modifier = Modifier.padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 8.dp)
+        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp)
     ) {
-        items(state.quotes, key = { it.id }) { quote ->
-            QuoteListItem(quote = quote, modifier = Modifier.animateItemPlacement())
+        items(quotesPages.itemCount,
+            key = quotesPages.itemKey { it.id },
+            contentType = { "Quote" }) { index ->
+            val quote = quotesPages[index]
+            if (quote != null) QuoteListItem(
+                quote = quote, modifier = Modifier.animateItemPlacement()
+            )
         }
     }
 }
@@ -145,14 +157,39 @@ private fun QuoteListItem(modifier: Modifier, quote: Quote) {
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = quote.quote, style = MaterialTheme.typography.bodyLarge)
-            Row {
-                Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = quote.quote,
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Text(text = quote.author, style = MaterialTheme.typography.bodySmall)
+                Spacer(modifier = Modifier.weight(1F))
+                IconButton(onClick = {}) {
+                    Icon(
+                        imageVector = if (quote.isFavorite)
+                            Icons.Rounded.Favorite
+                        else
+                            Icons.Rounded.FavoriteBorder,
+                        contentDescription = stringResource(
+                            id = R.string.favorite
+                        )
+                    )
+                }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun QuoteListItemPreview() {
+    ThunderQuoteTheme {
+        QuoteListItem(modifier = Modifier, quote = QuoteDummies.display)
     }
 }
 
@@ -162,8 +199,17 @@ private fun QuoteListItem(modifier: Modifier, quote: Quote) {
 private fun HomeScreenContentPreview() {
     HomeScreen(
         HomeViewModel.State(
-            quote = QuoteDummies.display,
-            quotes = listOf(QuoteDummies.display, QuoteDummies.display)
+            quotes = flowOf(
+                PagingData.from(
+                    data = listOf(
+                        QuoteDummies.display, QuoteDummies.display2
+                    ), sourceLoadStates = LoadStates(
+                        refresh = LoadState.NotLoading(true),
+                        append = LoadState.NotLoading(false),
+                        prepend = LoadState.NotLoading(false),
+                    )
+                )
+            ),
         )
     )
 }
@@ -173,7 +219,7 @@ private fun HomeScreenContentPreview() {
 private fun HomeScreenEmptyPreview() {
     HomeScreen(
         HomeViewModel.State(
-            quote = QuoteDummies.empty, quotes = emptyList()
+            quotes = emptyFlow()
         )
     )
 }
