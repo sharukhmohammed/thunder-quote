@@ -13,6 +13,7 @@ kotlinx-serialisation = "1.7.0"
 room-version = "2.6.1"
 ksp = "2.0.0-1.0.22"
 paging = "3.3.0"
+navigation = "2.8.0-beta04"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,7 +32,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 # Lifecycle
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-lifecycle-runtime-compose = {group= "androidx.lifecycle", name="lifecycle-runtime-compose", version.ref ="lifecycleRuntimeKtx"}
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 
 # Paging
 compose-paging = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
@@ -48,6 +49,10 @@ room-core = { group = "androidx.room", name = "room-runtime", version.ref = "roo
 room-annotation = { group = "androidx.room", name = "room-compiler", version.ref = "room-version" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room-version" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-version" }
+
+#Navigation
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+navigation-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

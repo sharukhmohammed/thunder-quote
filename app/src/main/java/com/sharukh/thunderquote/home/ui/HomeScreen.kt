@@ -41,6 +41,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
@@ -49,14 +53,44 @@ import androidx.paging.compose.itemKey
 import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.model.Quote
 import com.sharukh.thunderquote.model.QuoteDummies
+import com.sharukh.thunderquote.navigation.Screen
+import com.sharukh.thunderquote.navigation.Screen.QuoteDetail
+import com.sharukh.thunderquote.navigation.Screen.QuoteList
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun HomeScreenActivity(viewModel: HomeViewModel, actions: HomeScreenActions? = null) {
+fun HomeScreenActivity(viewModel: HomeViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    HomeScreen(state, actions)
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Screen.QuoteList) {
+        composable<QuoteList> { backStackEntry ->
+            val actions = object : HomeScreenActions {
+                override fun onClickRefresh() {
+                    viewModel.refresh()
+                }
+
+                override fun onClickMore() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onClickFavorite() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onClickShare() {
+                    TODO("Not yet implemented")
+                }
+            }
+            HomeScreen(state, actions)
+        }
+        composable<QuoteDetail> { backStackEntry ->
+            val profile: QuoteDetail = backStackEntry.toRoute()
+//            ProfileScreen(profile.id)
+        }
+    }
+
 }
 
 @Composable

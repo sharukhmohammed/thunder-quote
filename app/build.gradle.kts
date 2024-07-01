@@ -67,6 +67,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
 
+    // Navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.navigation.ktx)
+
+
     // Network
     implementation(libs.retrofit)
 
