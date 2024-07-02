@@ -4,4 +4,6 @@
     <string name="share">Share</string>
     <string name="refresh">Refresh</string>
     <string name="more">More</string>
+    <string name="daily">Daily</string>
+    <string name="quotes">Quotes</string>
 </resources>

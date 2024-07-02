@@ -1,25 +1,15 @@
 package com.sharukh.thunderquote.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import kotlinx.serialization.Serializable
 
-object Screen {
+abstract class Screen {
     @Serializable
-    object QuoteList
-
-    @Serializable
-    object QuoteDetail
+    data class QuoteList(val onlyFav: Boolean) : Screen()
 
     @Serializable
-    object Settings
+    data object QuoteDetail : Screen()
 
-    @Composable
-    fun AppNavHostHost(navController: NavHostController) {
-
-    }
+    @Serializable
+    data object Settings : Screen()
 
 }
