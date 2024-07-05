@@ -36,7 +36,6 @@ import com.sharukh.thunderquote.ui.base.AppBottomAppBar
 import com.sharukh.thunderquote.ui.base.AppTopAppBar
 import com.sharukh.thunderquote.ui.quote.QuoteActions
 import com.sharukh.thunderquote.ui.quote.QuoteDisplayScreen
-import com.sharukh.thunderquote.ui.quote.QuoteDisplayScreenAction
 import com.sharukh.thunderquote.ui.quote.QuoteListScreen
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
 
@@ -47,6 +46,7 @@ fun HomeScreenParent(viewModel: HomeViewModel) {
     val dailyState by viewModel.randomQuoteState.collectAsStateWithLifecycle()
 
     val actionHandler = object : QuoteActions {
+        override fun onRefresh() = viewModel.getRandom()
         override fun onFavorite(quote: Quote) = viewModel.toggleFavorite(quote)
         override fun onShare(quote: Quote) = viewModel.getRandom()
     }
@@ -64,25 +64,7 @@ fun HomeScreenParent(viewModel: HomeViewModel) {
                 }
             },
             floatingActionButton = {
-                FloatingActionButton(
-                    onClick = {
-                        // action?.onClickRefresh()
-                    },
-                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 12.dp)
-                    ) {
-                        Icon(
-                            Icons.Rounded.Refresh,
-                            contentDescription = stringResource(id = R.string.refresh)
-                        )
-                        Spacer(modifier = Modifier.padding(4.dp))
-                        Text(text = "Refresh")
-                    }
-                }
+
             },
             floatingActionButtonPosition = FabPosition.End,
         ) { innerPadding ->
@@ -97,12 +79,7 @@ fun HomeScreenParent(viewModel: HomeViewModel) {
                     QuoteListScreen(innerPadding, favState, actionHandler)
                 }
                 composable<Screen.QuoteDetail> {
-                    QuoteDisplayScreen(dailyState) { action ->
-                        when (action) {
-                            is QuoteDisplayScreenAction.Refresh -> viewModel.getRandom()
-                            is QuoteDisplayScreenAction.Favorite -> viewModel.toggleFavorite(action.quote)
-                        }
-                    }
+                    QuoteDisplayScreen(innerPadding, dailyState, actionHandler)
                 }
                 composable<Screen.Settings> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

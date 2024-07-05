@@ -10,4 +10,8 @@ interface QuoteActions {
     fun onShare(quote: Quote) {
 
     }
+
+    fun onRefresh() {
+
+    }
 }
