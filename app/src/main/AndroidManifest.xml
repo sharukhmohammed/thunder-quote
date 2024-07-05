@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ThunderQuote"
         tools:targetApi="31">
         <activity
-            android:name=".home.ui.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.ThunderQuote">
             <intent-filter>

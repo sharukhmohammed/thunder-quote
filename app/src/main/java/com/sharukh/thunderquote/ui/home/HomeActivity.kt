@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.sharukh.thunderquote.home.ui
+package com.sharukh.thunderquote.ui.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

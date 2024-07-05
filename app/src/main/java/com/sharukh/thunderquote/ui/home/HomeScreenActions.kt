@@ -1,4 +1,4 @@
-package com.sharukh.thunderquote.home.ui
+package com.sharukh.thunderquote.ui.home
 
 interface HomeScreenActions {
     fun onClickRefresh()

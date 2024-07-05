@@ -25,22 +25,26 @@ class QuoteRepo {
         return json.decodeFromStream<List<QuoteFromJson>>(quotesInputStream)
     }
 
-    /*private fun getAllQuotes(): List<Quote> {
-        return readQuotes()
-            .mapIndexed { index, quote -> Quote(index, quote.quote, quote.author) }
+    fun quoteByPaging(
+        filterString: String,
+        filterFavorite: Boolean
+    ): Flow<PagingData<Quote>> {
+        return Pager(
+            PagingConfig(20, 15),
+        ) {
+            if (filterFavorite)
+                db.quoteDao().getFavorites()
+            else
+                db.quoteDao().getAll()
+        }.flow
     }
 
-    suspend fun insertAllQuotes() {
-        val qEs = getAllQuotes().map { Quote(it.id, it.quote, it.author, false) }
-        db.quoteDao().insertAll(*qEs.toTypedArray())
-    }*/
+    suspend fun setFavorite(quote: Quote, favorite: Boolean) {
+        db.quoteDao().update(quote.copy(isFavorite = favorite))
+    }
 
-    fun quoteByPaging(): Flow<PagingData<Quote>> {
-        return Pager(
-            PagingConfig(10, 10),
-        ) {
-            db.quoteDao().getAll()
-        }.flow
+    suspend fun random(): Quote? {
+        return db.quoteDao().getRandom()
     }
 
 }

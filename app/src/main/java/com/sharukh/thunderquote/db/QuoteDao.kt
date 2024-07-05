@@ -16,12 +16,15 @@ interface QuoteDao {
     @Update
     suspend fun update(quote: Quote)
 
-    @Query("SELECT * FROM quotes WHERE isFavorite = 1")
+    @Query("SELECT * FROM quotes WHERE isFavorite = 1 ORDER BY RANDOM()")
     fun getFavorites(): PagingSource<Int, Quote>
 
-    @Query("SELECT * FROM quotes")
+    @Query("SELECT * FROM quotes ORDER BY RANDOM()")
     fun getAll(): PagingSource<Int, Quote>
 
     @Query("SELECT * FROM quotes  WHERE quote LIKE :searchQuery")
     fun getAll(searchQuery: String): PagingSource<Int, Quote>
+
+    @Query("SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandom(): Quote?
 }
