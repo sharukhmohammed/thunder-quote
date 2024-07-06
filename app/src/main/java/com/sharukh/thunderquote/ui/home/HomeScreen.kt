@@ -3,18 +3,9 @@
 package com.sharukh.thunderquote.ui.home
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Refresh
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -24,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -46,9 +36,9 @@ fun HomeScreenParent(viewModel: HomeViewModel) {
     val dailyState by viewModel.randomQuoteState.collectAsStateWithLifecycle()
 
     val actionHandler = object : QuoteActions {
-        override fun onRefresh() = viewModel.getRandom()
-        override fun onFavorite(quote: Quote) = viewModel.toggleFavorite(quote)
-        override fun onShare(quote: Quote) = viewModel.getRandom()
+        override fun onRefresh()  { viewModel.refresh() }
+        override fun onFavorite(quote: Quote)  { viewModel.toggleFavorite(quote) }
+        override fun onShare(quote: Quote) = Unit
     }
 
     val navController = rememberNavController()

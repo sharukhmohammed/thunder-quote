@@ -9,15 +9,22 @@ import com.sharukh.thunderquote.app.AppModule
 import com.sharukh.thunderquote.di.ServiceLocator
 import com.sharukh.thunderquote.model.Quote
 import com.sharukh.thunderquote.model.QuoteFromJson
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.decodeFromStream
 
 class QuoteRepo {
+
     private val json
         get() = AppModule.json
 
     private val db = ServiceLocator.appDatabase()
+    private val dao = db.quoteDao()
+
+    private var randomId: Int? = null
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun readQuotes(): List<QuoteFromJson> {
@@ -33,18 +40,32 @@ class QuoteRepo {
             PagingConfig(20, 15),
         ) {
             if (filterFavorite)
-                db.quoteDao().getFavorites()
+                dao.getFavorites()
             else
-                db.quoteDao().getAll()
+                dao.getAll()
         }.flow
     }
 
     suspend fun setFavorite(quote: Quote, favorite: Boolean) {
-        db.quoteDao().update(quote.copy(isFavorite = favorite))
+        dao.update(quote.copy(isFavorite = favorite))
     }
 
-    suspend fun random(): Quote? {
-        return db.quoteDao().getRandom()
+    private suspend fun randomId(): Int? {
+        return dao.getRandomId()
+    }
+
+    fun getQuote(id: Int): Flow<Quote?> = dao.getQuote(id)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun randomQuote(refresh: Boolean = false): Flow<Quote?> = flow {
+        if (randomId == null || refresh) {
+            val id = dao.getRandomId()
+            checkNotNull(id) { "DB Empty" }
+            randomId = id
+            emit(id)
+        }
+    }.flatMapConcat { id ->
+        dao.getQuote(id)
     }
 
 }

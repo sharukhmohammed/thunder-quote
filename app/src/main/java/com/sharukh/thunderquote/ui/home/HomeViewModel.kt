@@ -1,5 +1,6 @@
 package com.sharukh.thunderquote.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sharukh.thunderquote.model.Quote
@@ -8,6 +9,7 @@ import com.sharukh.thunderquote.ui.state.QuoteItemState
 import com.sharukh.thunderquote.ui.state.QuoteListState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -30,21 +32,19 @@ class HomeViewModel : ViewModel() {
 
 
     init {
-        getRandom()
+        refresh()
     }
 
-    fun getRandom() {
-        viewModelScope.launch {
-            _randomQuoteState.update {
-                it.copy(quote = repo.random())
+    fun refresh() = viewModelScope.launch {
+        repo.randomQuote(true).stateIn(viewModelScope).collect { newQuote ->
+                Log.d("HomeViewModel", "Callback: ${newQuote?.quote}")
+                _randomQuoteState.update { state -> state.copy(quote = newQuote) }
             }
-        }
     }
 
-    fun toggleFavorite(quote: Quote) {
-        viewModelScope.launch {
-            repo.setFavorite(quote, quote.isFavorite.not())
-        }
+    fun toggleFavorite(quote: Quote) = viewModelScope.launch {
+        repo.setFavorite(quote, quote.isFavorite.not())
     }
+
 
 }
