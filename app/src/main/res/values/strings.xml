@@ -8,4 +8,7 @@
     <string name="daily">Daily</string>
     <string name="quotes">Quotes</string>
     <string name="settings">Settings</string>
+    <string name="notification_category_quotes_name">Daily Quotes</string>
+    <string name="notification_category_quotes_description">Your daily dose of inspiration</string>
+    <string name="notification_category_quotes_group">Quotes</string>
 </resources>

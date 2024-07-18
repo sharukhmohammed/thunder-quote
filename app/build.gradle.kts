@@ -75,18 +75,22 @@ dependencies {
     // Network
     implementation(libs.retrofit)
 
-    //Serialization
+    // Serialization
     implementation(libs.kotlinx.serialisation.core)
     implementation(libs.kotlinx.serialisation.json)
 
-    //Room
+    // Room
     implementation(libs.room.core)
     implementation(libs.room.paging)
     implementation(libs.room.ktx)
     ksp(libs.room.annotation)
 
-    //Paging
+    // Paging
     implementation(libs.compose.paging)
+
+
+    // Work
+    implementation(libs.work.runtime)
 
 
     //Testing

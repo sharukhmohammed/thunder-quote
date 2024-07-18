@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
@@ -22,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.model.Quote
 import com.sharukh.thunderquote.navigation.Screen
+import com.sharukh.thunderquote.notification.Notification
 import com.sharukh.thunderquote.ui.base.AppBottomAppBar
 import com.sharukh.thunderquote.ui.base.AppTopAppBar
 import com.sharukh.thunderquote.ui.quote.QuoteActions
@@ -30,14 +32,24 @@ import com.sharukh.thunderquote.ui.quote.QuoteListScreen
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
 
 @Composable
-fun HomeScreenParent(viewModel: HomeViewModel) {
+fun HomeActivityScreen(viewModel: HomeViewModel) {
     val listState by viewModel.listState.collectAsStateWithLifecycle()
     val favState by viewModel.favoritesState.collectAsStateWithLifecycle()
     val dailyState by viewModel.randomQuoteState.collectAsStateWithLifecycle()
-
+    val context = LocalContext.current
     val actionHandler = object : QuoteActions {
-        override fun onRefresh()  { viewModel.refresh() }
-        override fun onFavorite(quote: Quote)  { viewModel.toggleFavorite(quote) }
+        override fun onRefresh() {
+            viewModel.refresh();
+        }
+
+        override fun onFavorite(quote: Quote) {
+            viewModel.toggleFavorite(quote);
+            Notification.post(context, Notification.Category.DailyQuotes,
+                id = quote.id,
+                textTitle = quote.author,
+                textContent = quote.quote
+            )
+        }
         override fun onShare(quote: Quote) = Unit
     }
 

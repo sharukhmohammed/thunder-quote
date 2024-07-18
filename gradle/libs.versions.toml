@@ -1,11 +1,11 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.1"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.2"
+lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 retrofit = "2.11.0"
@@ -13,7 +13,8 @@ kotlinx-serialisation = "1.7.0"
 room-version = "2.6.1"
 ksp = "2.0.0-1.0.22"
 paging = "3.3.0"
-navigation = "2.8.0-beta04"
+navigation = "2.8.0-beta05"
+work-version = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,9 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-ver
 #Navigation
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 navigation-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation" }
+
+#Work
+work-runtime = { group = "androidx.work", name= "work-runtime-ktx", version.ref = "work-version"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
