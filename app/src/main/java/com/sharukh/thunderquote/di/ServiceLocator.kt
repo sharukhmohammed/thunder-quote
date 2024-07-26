@@ -1,5 +1,7 @@
 package com.sharukh.thunderquote.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.sharukh.thunderquote.app.App
 import com.sharukh.thunderquote.db.AppDatabase
@@ -17,5 +19,10 @@ object ServiceLocator {
         ).createFromAsset(dBName)
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+
+    fun preferences(): SharedPreferences {
+        return context.getSharedPreferences("thunder-quote", Context.MODE_PRIVATE)
     }
 }

@@ -44,11 +44,7 @@ fun HomeActivityScreen(viewModel: HomeViewModel) {
 
         override fun onFavorite(quote: Quote) {
             viewModel.toggleFavorite(quote);
-            Notification.post(context, Notification.Category.DailyQuotes,
-                id = quote.id,
-                textTitle = quote.author,
-                textContent = quote.quote
-            )
+            Notification.post(context, quote, Notification.Category.DailyQuotes)
         }
         override fun onShare(quote: Quote) = Unit
     }

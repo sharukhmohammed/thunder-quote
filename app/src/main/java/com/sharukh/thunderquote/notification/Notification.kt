@@ -3,6 +3,7 @@ package com.sharukh.thunderquote.notification
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
@@ -10,6 +11,8 @@ import android.provider.Settings
 import androidx.core.app.NotificationCompat
 import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.app.App
+import com.sharukh.thunderquote.model.Quote
+import com.sharukh.thunderquote.ui.home.HomeActivity
 
 
 class Notification {
@@ -37,14 +40,19 @@ class Notification {
             context.startActivity(intent)
         }
 
-        fun post(
+        private fun post(
             context: Context,
             category: Notification.Category,
             id: Int,
             textTitle: String,
             textContent: String,
         ) {
-
+            val pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                HomeActivity.quoteIntent(context, id),
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
 
             val builder =
                 NotificationCompat.Builder(context, category.asChannel.id)
@@ -58,10 +66,21 @@ class Notification {
                             .bigText(textContent)
                             .setBigContentTitle(textTitle)
                     )
+                    .setContentIntent(pendingIntent)
 
             manager(context).notify(id, builder.build())
         }
 
+
+        fun post(context: Context, quote: Quote, category: Category) {
+            post(
+                context,
+                category,
+                quote.id,
+                quote.author,
+                quote.quote
+            )
+        }
 
     }
 

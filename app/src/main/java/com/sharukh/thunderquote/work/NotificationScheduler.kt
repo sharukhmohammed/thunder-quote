@@ -20,10 +20,8 @@ class NotificationScheduler(
             return@withContext if (quote != null) {
                 Notification.post(
                     context,
+                    quote,
                     Notification.Category.DailyQuotes,
-                    quote.id,
-                    quote.author,
-                    quote.quote
                 )
                 Result.success()
             } else

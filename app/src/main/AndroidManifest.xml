@@ -16,6 +16,7 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.ThunderQuote">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
