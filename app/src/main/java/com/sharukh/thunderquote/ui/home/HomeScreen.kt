@@ -39,7 +39,8 @@ fun HomeActivityScreen(viewModel: HomeViewModel) {
     val context = LocalContext.current
     val actionHandler = object : QuoteActions {
         override fun onRefresh() {
-            viewModel.refresh();
+            //viewModel.refresh();
+            viewModel.getDogBreeds()
         }
 
         override fun onFavorite(quote: Quote) {
