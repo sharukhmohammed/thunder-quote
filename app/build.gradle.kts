@@ -73,7 +73,9 @@ dependencies {
 
 
     // Network
+    implementation(libs.okhttp)
     implementation(libs.retrofit)
+    implementation(libs.retrofit.json.converter)
 
     // Serialization
     implementation(libs.kotlinx.serialisation.core)
