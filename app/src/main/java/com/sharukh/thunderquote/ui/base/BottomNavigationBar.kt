@@ -3,10 +3,9 @@ package com.sharukh.thunderquote.ui.base
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Badge
@@ -47,14 +46,14 @@ fun AppBottomAppBar(hasDaily: Boolean = false, onChangeItem: (Screen) -> Unit) {
         ),
         BottomNavigationItem(
             title = stringResource(id = R.string.quotes),
-            selectedIcon = Icons.AutoMirrored.Default.List,
-            unselectedIcon = Icons.AutoMirrored.Default.List,
+            selectedIcon = Icons.AutoMirrored.Filled.List,
+            unselectedIcon = Icons.AutoMirrored.Filled.List,
             screen = Screen.QuoteList
         ),
         BottomNavigationItem(
             title = stringResource(id = R.string.favorites),
             selectedIcon = Icons.Default.Favorite,
-            unselectedIcon = Icons.Default.FavoriteBorder,
+            unselectedIcon = Icons.Outlined.FavoriteBorder,
             screen = Screen.QuoteFavorites
         ),
         BottomNavigationItem(

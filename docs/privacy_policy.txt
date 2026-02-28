@@ -1,0 +1,141 @@
+PRIVACY POLICY
+Thunder Quote
+================================================================================
+
+Last updated: February 28, 2026
+
+This Privacy Policy describes how Thunder Quote ("the App", "we", "our") handles
+information when you use our Android application.
+
+--------------------------------------------------------------------------------
+1. OVERVIEW
+--------------------------------------------------------------------------------
+
+Thunder Quote is a quote discovery app that displays daily quotes, allows you to
+save favourites, and can send you a daily notification with a new quote.
+
+We are committed to your privacy. Thunder Quote does not collect, store, or share
+any personally identifiable information.
+
+--------------------------------------------------------------------------------
+2. INFORMATION WE DO NOT COLLECT
+--------------------------------------------------------------------------------
+
+We do not collect:
+
+  - Your name, email address, phone number, or any contact details
+  - Account or login information (the App has no accounts)
+  - Location data
+  - Device identifiers or advertising IDs
+  - Browsing history or usage analytics
+  - Financial or payment information
+
+--------------------------------------------------------------------------------
+3. DATA STORED ON YOUR DEVICE
+--------------------------------------------------------------------------------
+
+All data the App stores stays entirely on your device and is never transmitted
+to us:
+
+  a) Quotes database
+     The App fetches quotes from a remote quotes API and caches them in a local
+     database (Room/SQLite) on your device. This data consists solely of quote
+     text and author names — no personal information.
+
+  b) Favourite quotes
+     Quotes you mark as favourites are saved in the same local database. This
+     data never leaves your device.
+
+  c) Notification preference
+     Your choice to enable or disable the daily notification is stored locally
+     on your device via Android WorkManager. This preference is not synced or
+     shared.
+
+--------------------------------------------------------------------------------
+4. INTERNET ACCESS
+--------------------------------------------------------------------------------
+
+The App uses an internet connection to fetch quotes from a third-party quotes
+API. The requests sent contain no personal information — they are standard
+HTTP requests for quote data. We do not operate this API and are not responsible
+for its privacy practices. We recommend reviewing the API provider's own privacy
+policy.
+
+No other network requests are made by the App.
+
+--------------------------------------------------------------------------------
+5. NOTIFICATIONS
+--------------------------------------------------------------------------------
+
+If you grant the POST_NOTIFICATIONS permission, the App can send you a daily
+notification containing a quote. You can:
+
+  - Disable notifications at any time from the Settings screen within the App
+  - Revoke the notification permission from your device's system settings
+    (Settings → Apps → Thunder Quote → Notifications)
+
+Notification delivery is handled entirely on-device via Android WorkManager.
+No notification data is routed through our servers.
+
+--------------------------------------------------------------------------------
+6. PERMISSIONS USED
+--------------------------------------------------------------------------------
+
+  INTERNET
+    Required to fetch quotes from the remote API.
+
+  POST_NOTIFICATIONS  (Android 13 / API 33 and above)
+    Required to display the optional daily quote notification. You are asked
+    for this permission explicitly within the App and can deny or revoke it at
+    any time.
+
+No other permissions are requested.
+
+--------------------------------------------------------------------------------
+7. THIRD-PARTY SERVICES
+--------------------------------------------------------------------------------
+
+The App fetches quote content from a remote API. Beyond this API call, the App
+does not integrate any third-party SDKs for analytics, advertising, crash
+reporting, or tracking.
+
+--------------------------------------------------------------------------------
+8. CHILDREN'S PRIVACY
+--------------------------------------------------------------------------------
+
+Thunder Quote does not knowingly collect any information from children under the
+age of 13 (or the applicable age of digital consent in your jurisdiction). The
+App contains no user accounts and collects no personal data from any user of any
+age.
+
+--------------------------------------------------------------------------------
+9. DATA SECURITY
+--------------------------------------------------------------------------------
+
+Because no personal data is collected or transmitted, there is no personal data
+at risk. Data stored on your device (quotes cache, favourites) is protected by
+your device's own security mechanisms (e.g. app sandboxing, device encryption).
+
+--------------------------------------------------------------------------------
+10. CHANGES TO THIS POLICY
+--------------------------------------------------------------------------------
+
+We may update this Privacy Policy from time to time. Any changes will be
+reflected in the "Last updated" date at the top of this document and, where
+appropriate, notified within the App. Continued use of the App after changes
+are posted constitutes your acceptance of the updated policy.
+
+--------------------------------------------------------------------------------
+11. CONTACT
+--------------------------------------------------------------------------------
+
+If you have any questions or concerns about this Privacy Policy, please contact
+us at:
+
+  Developer:  Sharukh Mohammed
+  Email:      sharukh7srk@gmail.com
+  App ID:     sharukh.thunderquote
+
+================================================================================
+END OF PRIVACY POLICY
+================================================================================

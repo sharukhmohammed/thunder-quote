@@ -2,18 +2,14 @@
 
 package com.sharukh.thunderquote.ui.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,6 +25,7 @@ import com.sharukh.thunderquote.ui.base.AppTopAppBar
 import com.sharukh.thunderquote.ui.quote.QuoteActions
 import com.sharukh.thunderquote.ui.quote.QuoteDisplayScreen
 import com.sharukh.thunderquote.ui.quote.QuoteListScreen
+import com.sharukh.thunderquote.ui.settings.SettingsScreen
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
 
 @Composable
@@ -53,6 +50,7 @@ fun HomeActivityScreen(viewModel: HomeViewModel) {
     ThunderQuoteTheme {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
             topBar = {
                 AppTopAppBar(stringResource(id = R.string.app_name), scrollBehavior)
             },
@@ -80,9 +78,7 @@ fun HomeActivityScreen(viewModel: HomeViewModel) {
                     QuoteDisplayScreen(innerPadding, dailyState, actionHandler)
                 }
                 composable<Screen.Settings> {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("Settings")
-                    }
+                    SettingsScreen(innerPadding)
                 }
             }
         }

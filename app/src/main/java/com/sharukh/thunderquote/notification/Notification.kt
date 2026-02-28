@@ -33,9 +33,8 @@ class Notification {
         }
 
         fun openNotificationSettings(context: Context) {
-            val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                 putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                // putExtra(Settings.EXTRA_CHANNEL_ID, QUOTES_CHANNEL_ID)
             }
             context.startActivity(intent)
         }
