@@ -15,4 +15,7 @@ abstract class Screen {
 
     @Serializable
     data object Settings : Screen()
+
+    @Serializable
+    data object AiChat : Screen()
 }

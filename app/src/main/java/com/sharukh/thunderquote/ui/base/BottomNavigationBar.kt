@@ -3,11 +3,12 @@ package com.sharukh.thunderquote.ui.base
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -21,7 +22,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.navigation.Screen
 
@@ -35,8 +35,12 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun AppBottomAppBar(hasDaily: Boolean = false, onChangeItem: (Screen) -> Unit) {
-    val items = listOf(
+fun AppBottomAppBar(
+    hasDaily: Boolean = false,
+    showAiTab: Boolean = false,
+    onChangeItem: (Screen) -> Unit,
+) {
+    val baseItems = listOf(
         BottomNavigationItem(
             title = stringResource(id = R.string.daily),
             selectedIcon = Icons.Default.Home,
@@ -63,7 +67,18 @@ fun AppBottomAppBar(hasDaily: Boolean = false, onChangeItem: (Screen) -> Unit) {
             screen = Screen.Settings
         ),
     )
+
+    val aiItem = BottomNavigationItem(
+        title = stringResource(id = R.string.ai_tab_label),
+        selectedIcon = Icons.Rounded.AutoAwesome,
+        unselectedIcon = Icons.Rounded.AutoAwesome,
+        screen = Screen.AiChat
+    )
+
+    val items = if (showAiTab) baseItems + aiItem else baseItems
+
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
+
     NavigationBar {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
@@ -72,39 +87,26 @@ fun AppBottomAppBar(hasDaily: Boolean = false, onChangeItem: (Screen) -> Unit) {
                     selectedItemIndex = index
                     onChangeItem(item.screen)
                 },
-                label = {
-                    Text(text = item.title)
-                },
+                label = { Text(text = item.title) },
                 alwaysShowLabel = true,
                 icon = {
                     BadgedBox(
                         badge = {
                             if (item.badgeCount != null) {
-                                Badge {
-                                    Text(text = item.badgeCount.toString())
-                                }
+                                Badge { Text(text = item.badgeCount.toString()) }
                             } else if (item.hasNews) {
                                 Badge()
                             }
                         }
                     ) {
                         Icon(
-                            imageVector = if (index == selectedItemIndex) {
-                                item.selectedIcon
-                            } else item.unselectedIcon,
+                            imageVector = if (index == selectedItemIndex) item.selectedIcon
+                            else item.unselectedIcon,
                             contentDescription = item.title
                         )
                     }
                 }
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun AppBottomAppBarPreview() {
-    AppBottomAppBar(){
-
     }
 }

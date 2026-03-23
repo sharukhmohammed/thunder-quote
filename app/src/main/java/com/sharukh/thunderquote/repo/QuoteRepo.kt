@@ -56,6 +56,8 @@ class QuoteRepo {
 
     fun getQuote(id: Int): Flow<Quote?> = dao.getQuote(id)
 
+    suspend fun getFavoritesList(): List<Quote> = dao.getFavoritesList()
+
     @OptIn(ExperimentalCoroutinesApi::class)
     fun randomQuote(refresh: Boolean = false): Flow<Quote?> = flow {
         if (randomId == null || refresh) {

@@ -11,4 +11,22 @@
     <string name="notification_category_quotes_name">Daily Quotes</string>
     <string name="notification_category_quotes_description">Your daily dose of inspiration</string>
     <string name="notification_category_quotes_group">Quotes</string>
+
+    <!-- AI feature -->
+    <string name="ai_tab_label">AI</string>
+    <string name="ai_checking">Checking on-device AI…</string>
+    <string name="ai_downloading">Preparing on-device model…</string>
+    <string name="ai_unavailable_title">On-device AI not available</string>
+    <string name="ai_unavailable_body">This feature requires a Pixel 8 Pro (or later) or Samsung Galaxy S24 (or later) with Android AI Core.</string>
+    <string name="ai_tab_generate">Generate</string>
+    <string name="ai_tab_chat">Chat</string>
+    <string name="ai_tab_for_you">For You</string>
+    <string name="ai_generate_hint">Topic or mood (e.g. resilience, joy)</string>
+    <string name="ai_generate_button">Generate quote</string>
+    <string name="ai_chat_hint">Ask anything about quotes…</string>
+    <string name="ai_chat_send">Send</string>
+    <string name="ai_chat_empty">Start a conversation about quotes, wisdom, or inspiration.</string>
+    <string name="ai_for_you_loading">Analysing your favourites…</string>
+    <string name="ai_for_you_empty">No recommendations yet. Favourite some quotes first!</string>
+    <string name="ai_for_you_retry">Try again</string>
 </resources>
