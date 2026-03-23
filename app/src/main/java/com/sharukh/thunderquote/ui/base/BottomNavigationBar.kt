@@ -8,6 +8,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.DirectionsWalk
+import androidx.compose.material.icons.filled.DirectionsWalk
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -55,6 +57,12 @@ fun AppBottomAppBar(hasDaily: Boolean = false, onChangeItem: (Screen) -> Unit) {
             selectedIcon = Icons.Default.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
             screen = Screen.QuoteFavorites
+        ),
+        BottomNavigationItem(
+            title = stringResource(id = R.string.steps),
+            selectedIcon = Icons.Default.DirectionsWalk,
+            unselectedIcon = Icons.Outlined.DirectionsWalk,
+            screen = Screen.StepCounter
         ),
         BottomNavigationItem(
             title = stringResource(id = R.string.settings),
