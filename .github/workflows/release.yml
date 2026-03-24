@@ -4,13 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       version_name:
-        description: 'Version name (e.g. 1.2.0)'
+        description: 'Version name (e.g. 1.2.0) — shown to users'
         required: true
         default: '1.0.0'
+      version_code:
+        description: 'Version code (integer) — must be higher than the last Play Store upload'
+        required: true
+        default: '50'
+      play_track:
+        description: 'Play Store track to publish to'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
       release_notes:
-        description: 'Release notes (shown on the GitHub release page)'
+        description: 'Release notes (shown on GitHub Release and Play Store)'
         required: false
-        default: 'New release'
+        default: ''
 
 jobs:
   build-and-release:
@@ -42,13 +56,15 @@ jobs:
       - name: Grant Gradle execute permission
         run: chmod +x gradlew
 
-      - name: Build release APK
+      - name: Build release APK and AAB
         env:
           KEYSTORE_PATH: /tmp/keystore.jks
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --no-daemon
+          VERSION_CODE: ${{ github.event.inputs.version_code }}
+          VERSION_NAME: ${{ github.event.inputs.version_name }}
+        run: ./gradlew assembleRelease bundleRelease --no-daemon
 
       - name: Rename APK
         run: |
@@ -64,3 +80,13 @@ jobs:
           files: app/build/outputs/apk/release/thunder-quote-${{ github.event.inputs.version_name }}.apk
           draft: false
           prerelease: false
+
+      - name: Upload AAB to Play Store
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: sharukh.thunderquote
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: ${{ github.event.inputs.play_track }}
+          status: completed
+          whatsNewDirectory: distribution/whatsnew

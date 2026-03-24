@@ -14,8 +14,8 @@ android {
         applicationId = "sharukh.thunderquote"
         minSdk = 26
         targetSdk = 36
-        versionCode = 49
-        versionName = "1.0"
+        versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 49
+        versionName = System.getenv("VERSION_NAME") ?: "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
