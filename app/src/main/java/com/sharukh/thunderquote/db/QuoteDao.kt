@@ -33,4 +33,7 @@ interface QuoteDao {
     @Query("SELECT * FROM quotes  WHERE quote LIKE :searchQuery")
     fun getAll(searchQuery: String): PagingSource<Int, Quote>
 
+    @Query("SELECT * FROM quotes WHERE isFavorite = 1 LIMIT 20")
+    suspend fun getFavoritesList(): List<Quote>
+
 }

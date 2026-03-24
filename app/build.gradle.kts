@@ -94,6 +94,9 @@ dependencies {
     // Work
     implementation(libs.work.runtime)
 
+    // AI Core — on-device Gemini Nano (Pixel 8 Pro+ / Galaxy S24+)
+    implementation(libs.aicore)
+
 
     //Testing
     testImplementation(libs.junit)

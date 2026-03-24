@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -20,12 +21,15 @@ import com.sharukh.thunderquote.R
 import com.sharukh.thunderquote.model.Quote
 import com.sharukh.thunderquote.navigation.Screen
 import com.sharukh.thunderquote.notification.Notification
+import com.sharukh.thunderquote.ui.ai.AiScreen
+import com.sharukh.thunderquote.ui.ai.AiViewModel
 import com.sharukh.thunderquote.ui.base.AppBottomAppBar
 import com.sharukh.thunderquote.ui.base.AppTopAppBar
 import com.sharukh.thunderquote.ui.quote.QuoteActions
 import com.sharukh.thunderquote.ui.quote.QuoteDisplayScreen
 import com.sharukh.thunderquote.ui.quote.QuoteListScreen
 import com.sharukh.thunderquote.ui.settings.SettingsScreen
+import com.sharukh.thunderquote.ui.state.AiAvailability
 import com.sharukh.thunderquote.ui.steps.StepCounterScreen
 import com.sharukh.thunderquote.ui.steps.StepCounterViewModel
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
@@ -37,15 +41,21 @@ fun HomeActivityScreen(viewModel: HomeViewModel, stepViewModel: StepCounterViewM
     val dailyState by viewModel.randomQuoteState.collectAsStateWithLifecycle()
     val stepState by stepViewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    val aiViewModel: AiViewModel = viewModel()
+    val aiUiState by aiViewModel.uiState.collectAsStateWithLifecycle()
+    val isAiAvailable = aiUiState.availability == AiAvailability.Available
+
     val actionHandler = object : QuoteActions {
         override fun onRefresh() {
-            viewModel.refresh();
+            viewModel.refresh()
         }
 
         override fun onFavorite(quote: Quote) {
-            viewModel.toggleFavorite(quote);
+            viewModel.toggleFavorite(quote)
             Notification.post(context, quote, Notification.Category.DailyQuotes)
         }
+
         override fun onShare(quote: Quote) = Unit
     }
 
@@ -58,13 +68,11 @@ fun HomeActivityScreen(viewModel: HomeViewModel, stepViewModel: StepCounterViewM
                 AppTopAppBar(stringResource(id = R.string.app_name), scrollBehavior)
             },
             bottomBar = {
-                AppBottomAppBar(false) {
+                AppBottomAppBar(hasDaily = false, showAiTab = isAiAvailable) {
                     navController.navigate(it)
                 }
             },
-            floatingActionButton = {
-
-            },
+            floatingActionButton = {},
             floatingActionButtonPosition = FabPosition.End,
         ) { innerPadding ->
             NavHost(
@@ -90,32 +98,10 @@ fun HomeActivityScreen(viewModel: HomeViewModel, stepViewModel: StepCounterViewM
                 composable<Screen.Settings> {
                     SettingsScreen(innerPadding)
                 }
+                composable<Screen.AiChat> {
+                    AiScreen(innerPadding = innerPadding, viewModel = aiViewModel)
+                }
             }
         }
     }
-
 }
-
-//@Composable
-//private fun HomeScreen(
-//    navController: NavHostController,
-//    quoteListState: QuoteListState,
-//    favoritesState: QuoteListState,
-//    quoteDailyState: QuoteItemState,
-//    goToScreen: (Screen) -> Unit
-//) {
-//
-//}
-//
-//@Preview
-//@Composable
-//private fun HomeScreenPreview() {
-//    HomeScreen(
-//        navController = rememberNavController(),
-//        quoteListState = QuoteListState(),
-//        favoritesState = QuoteListState(),
-//        quoteDailyState = QuoteItemState(),
-//    ) {
-//
-//    }
-//}
