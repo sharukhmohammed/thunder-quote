@@ -7,6 +7,7 @@ object Size {
 
     val dp4 get() = 4.dp
     val dp8 get() = 8.dp
+    val dp12 get() = 12.dp
     val dp16 get() = 16.dp
     val dp20 get() = 20.dp
     val dp32 get() = 32.dp
