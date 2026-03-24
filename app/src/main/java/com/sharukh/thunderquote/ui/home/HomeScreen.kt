@@ -26,13 +26,16 @@ import com.sharukh.thunderquote.ui.quote.QuoteActions
 import com.sharukh.thunderquote.ui.quote.QuoteDisplayScreen
 import com.sharukh.thunderquote.ui.quote.QuoteListScreen
 import com.sharukh.thunderquote.ui.settings.SettingsScreen
+import com.sharukh.thunderquote.ui.steps.StepCounterScreen
+import com.sharukh.thunderquote.ui.steps.StepCounterViewModel
 import com.sharukh.thunderquote.ui.theme.ThunderQuoteTheme
 
 @Composable
-fun HomeActivityScreen(viewModel: HomeViewModel) {
+fun HomeActivityScreen(viewModel: HomeViewModel, stepViewModel: StepCounterViewModel) {
     val listState by viewModel.listState.collectAsStateWithLifecycle()
     val favState by viewModel.favoritesState.collectAsStateWithLifecycle()
     val dailyState by viewModel.randomQuoteState.collectAsStateWithLifecycle()
+    val stepState by stepViewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val actionHandler = object : QuoteActions {
         override fun onRefresh() {
@@ -76,6 +79,13 @@ fun HomeActivityScreen(viewModel: HomeViewModel) {
                 }
                 composable<Screen.QuoteDetail> {
                     QuoteDisplayScreen(innerPadding, dailyState, actionHandler)
+                }
+                composable<Screen.StepCounter> {
+                    StepCounterScreen(
+                        innerPadding = innerPadding,
+                        state = stepState,
+                        onPermissionResult = stepViewModel::onPermissionResult
+                    )
                 }
                 composable<Screen.Settings> {
                     SettingsScreen(innerPadding)
