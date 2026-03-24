@@ -1,0 +1,66 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Version name (e.g. 1.2.0)'
+        required: true
+        default: '1.0.0'
+      release_notes:
+        description: 'Release notes (shown on the GitHub release page)'
+        required: false
+        default: 'New release'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > /tmp/keystore.jks
+
+      - name: Grant Gradle execute permission
+        run: chmod +x gradlew
+
+      - name: Build release APK
+        env:
+          KEYSTORE_PATH: /tmp/keystore.jks
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Rename APK
+        run: |
+          mv app/build/outputs/apk/release/app-release.apk \
+             app/build/outputs/apk/release/thunder-quote-${{ github.event.inputs.version_name }}.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.inputs.version_name }}
+          name: Thunder Quote v${{ github.event.inputs.version_name }}
+          body: ${{ github.event.inputs.release_notes }}
+          files: app/build/outputs/apk/release/thunder-quote-${{ github.event.inputs.version_name }}.apk
+          draft: false
+          prerelease: false
