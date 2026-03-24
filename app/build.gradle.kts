@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "sharukh.thunderquote"
-        minSdk = 26
+        minSdk = 31
         targetSdk = 36
         versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 49
         versionName = System.getenv("VERSION_NAME") ?: "1.0"
