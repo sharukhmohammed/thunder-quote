@@ -1,7 +1,9 @@
 package com.sharukh.thunderquote.ui.base
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsWalk
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
@@ -9,8 +11,6 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.AutoAwesome
-import androidx.compose.material.icons.outlined.DirectionsWalk
-import androidx.compose.material.icons.filled.DirectionsWalk
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -64,8 +64,8 @@ fun AppBottomAppBar(
         ),
         BottomNavigationItem(
             title = stringResource(id = R.string.steps),
-            selectedIcon = Icons.Default.DirectionsWalk,
-            unselectedIcon = Icons.Outlined.DirectionsWalk,
+            selectedIcon = Icons.AutoMirrored.Filled.DirectionsWalk,
+            unselectedIcon = Icons.AutoMirrored.Outlined.DirectionsWalk,
             screen = Screen.StepCounter
         ),
         BottomNavigationItem(

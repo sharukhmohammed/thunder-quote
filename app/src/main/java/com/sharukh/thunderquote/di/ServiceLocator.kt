@@ -17,7 +17,7 @@ object ServiceLocator {
             AppDatabase::class.java,
             dBName
         ).createFromAsset(dBName)
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
     }
 

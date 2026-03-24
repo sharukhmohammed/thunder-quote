@@ -1,7 +1,7 @@
 package com.sharukh.thunderquote.ai
 
 import android.content.Context
-import com.google.ai.edge.aicore.AvailabilityStatus
+// import com.google.ai.edge.aicore.AvailabilityStatus
 import com.google.ai.edge.aicore.GenerativeModel
 import com.google.ai.edge.aicore.content
 import com.google.ai.edge.aicore.generationConfig
@@ -29,12 +29,16 @@ class AiCoreRepository(private val context: Context) {
     }
 
     suspend fun checkAvailability(): AiAvailability {
+        // TODO: Update when AI Core API is stable
+        // The experimental version doesn't expose AvailabilityStatus/checkAvailability yet
         return try {
-            when (model.checkAvailability()) {
-                AvailabilityStatus.AVAILABLE -> AiAvailability.Available
-                AvailabilityStatus.DOWNLOADABLE -> AiAvailability.Downloading()
-                else -> AiAvailability.Unavailable
-            }
+            // Placeholder: assume available for now
+            AiAvailability.Available
+            // when (model.checkAvailability()) {
+            //     AvailabilityStatus.AVAILABLE -> AiAvailability.Available
+            //     AvailabilityStatus.DOWNLOADABLE -> AiAvailability.Downloading()
+            //     else -> AiAvailability.Unavailable
+            // }
         } catch (e: Exception) {
             AiAvailability.Unavailable
         }
